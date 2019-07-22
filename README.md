@@ -105,6 +105,7 @@ Flowpack:
               type: 'x-delayed-message'
               passive: false
               durable: true
+              declare: false
               autoDelete: false
               arguments:
                 # the origin type is topic so we can use routingkeys including `*` or `#`

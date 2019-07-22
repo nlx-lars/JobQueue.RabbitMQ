@@ -25,7 +25,7 @@ Neos:
 #            routingKey: '' # for advanced exchange configuration
 #            useDLX: false # support for dead letter exchange
 #
-#            # Options that are used to configure a que
+#            # Options that are used to configure a queue
 #            queueOptions:
 #              declare: true
 #              exchangeName: ''
@@ -39,6 +39,7 @@ Neos:
 #
 #            # Options to configure an optional exchange
 #            exchange:
+#              declare: true
 #              name: 't3n-exchange' # this field cannot be blank as the default exchange can not be overriden!
 #              type: 'direct'
 #              passive: false

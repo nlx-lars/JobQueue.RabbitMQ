@@ -85,11 +85,13 @@ class RabbitQueue implements QueueInterface
             $internal = isset($exchangeOptions['internal']) ? (bool) $exchangeOptions['internal'] : false;
             $nowait = isset($exchangeOptions['nowait']) ?(bool) $exchangeOptions['nowait'] : false;
 
-            $exchangeArguments = [];
-            if (isset($exchangeOptions['arguments']) && ! empty($exchangeOptions['arguments'])) {
-                $exchangeArguments = new AMQPTable(['x-delayed-type' => 'topic']);
+            if (isset($exchangeOptions['declare']) ? (bool) $exchangeOptions['declare'] : true) {
+                $exchangeArguments = [];
+                if (isset($exchangeOptions['arguments']) && ! empty($exchangeOptions['arguments'])) {
+                    $exchangeArguments = new AMQPTable(['x-delayed-type' => 'topic']);
+                }
+                $this->channel->exchange_declare($this->exchangeName, $type, $passive, $durable, $autoDelete, $internal, $nowait, $exchangeArguments);
             }
-            $this->channel->exchange_declare($this->exchangeName, $type, $passive, $durable, $autoDelete, $internal, $nowait, $exchangeArguments);
         }
 
         // declare queue
@@ -136,6 +138,7 @@ class RabbitQueue implements QueueInterface
      */
     public function submit($payload, array $options = []): string
     {
+        xdebug_break();
         return $this->queue($payload, $options);
     }
 
